@@ -4,6 +4,7 @@ import createPersistedState from "vuex-persistedstate";
 import * as Cookies from "js-cookie";
 
 import discussion from "./modules/discussion";
+import user from "./modules/user";
 
 Vue.use(Vuex);
 
@@ -17,5 +18,6 @@ export default new Vuex.Store({
   ],
   modules: {
     discussion,
+    user,
   },
 });
