@@ -28,7 +28,7 @@ export default {
   computed: {
     label() {
       if (this.title) {
-        if (this.title.includes(" ") > 0) {
+        if (this.title.includes(" ")) {
           var chars = this.title.split(" ");
           return (chars[0][0] + chars[1][0]).toUpperCase();
         } else {
