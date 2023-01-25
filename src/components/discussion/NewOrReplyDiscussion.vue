@@ -1,7 +1,8 @@
 <template>
   <div class="d-flex">
-    <rounded-image :title="'M e'"/>
-    <v-text-field
+    <rounded-image :src="user.avatar" :title="user.name" />
+    <v-textarea
+      v-model="discussionText"
       rounded-xl
       :label="isReply ? 'Reply' : 'Start a discussion'"
       flat
@@ -10,12 +11,17 @@
       outlined
       dense
       hide-details=""
-    ></v-text-field>
+      auto-grow
+      rows="1"
+      @keydown.enter.prevent="submit"
+    ></v-textarea>
   </div>
 </template>
 
 <script>
 import RoundedImage from "../widget/RoundedImage.vue";
+import { mapGetters } from "vuex";
+
 export default {
   components: { RoundedImage },
   props: {
@@ -23,10 +29,45 @@ export default {
       type: Boolean,
       default: false,
     },
+    discussionId: {
+      type: String,
+      default: null,
+    },
+  },
+
+  computed: {
+    ...mapGetters({ user: "getUser" }),
+  },
+
+  data() {
+    return {
+      discussionText: "",
+    };
+  },
+  methods: {
+    submit() {
+      if (!this.discussionText) {
+        return;
+      }
+
+      if (this.isReply) {
+        //Reply discussion
+        this.$store.dispatch("replyDiscussion", {
+          discussionText: this.discussionText,
+          discussionId: this.discussionId,
+        });
+      } else {
+        //Start discussion
+        this.$store.dispatch("startDiscussion", {
+          discussionText: this.discussionText,
+        });
+      }
+
+      this.discussionText = ""
+    },
   },
 };
 </script>
 
 <style lang="scss">
-
 </style>
