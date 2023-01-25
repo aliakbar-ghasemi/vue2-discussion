@@ -8,16 +8,28 @@
       <div class="ml-2 mt-1">
         <div class="d-flex">
           <h4>{{ discussion.user.name }}</h4>
-          <span class="mx-3 grey--text">{{
+          <span class="mx-3 grey--text text--lighten-1">{{
             getTimePassed(discussion.date)
           }}</span>
         </div>
 
-        <p>{{ discussion.text }}</p>
+        <p class="mt-1 grey--text text--darken-1">{{ discussion.text }}</p>
         <v-layout> </v-layout>
         <div class="d-flex">
-          <like :count="discussion.likes" :iLikedIt="discussion.iLikedIt" />
-          <strong v-if="isShowReply" @click="discussion.showReplies = true" class="mx-3 my-auto reply">Reply</strong>
+          <like
+            class="my-auto"
+            :discussion="discussion"
+            :count="discussion.likes"
+            :iLikedIt="discussion.iLikedIt"
+          />
+          <v-btn
+            v-if="isShowReply"
+            text
+            rounded
+            class="mx-3 my-auto"
+            color="#0c589d"
+            ><strong>Reply</strong></v-btn
+          >
         </div>
       </div>
     </v-layout>
@@ -43,7 +55,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.reply {
-  color: #0c589d;
-}
 </style>

@@ -1,7 +1,10 @@
 <template>
   <div>
-    <discussion-item :discussion="discussion" :is-show-reply="true" />
-    <div class="ml-15 mt-5">
+    <div @click="visiblePanel = !visiblePanel">
+      <discussion-item :discussion="discussion" :is-show-reply="true" />
+    </div>
+
+    <div v-if="visiblePanel" class="ml-15 mt-5">
       <div v-for="dItem in discussion.replies" :key="dItem.id">
         <discussion-item
           class="mt-3"
@@ -9,7 +12,11 @@
           :isShowReply="false"
         />
       </div>
-      <reply-discussion class="mt-5" :is-reply="true" />
+      <reply-discussion
+        class="mt-5"
+        :is-reply="true"
+        :discussion-id="discussion.id.toString()"
+      />
     </div>
   </div>
 </template>
@@ -24,6 +31,11 @@ export default {
       type: Object,
       default: null,
     },
+  },
+  data() {
+    return {
+      visiblePanel: false,
+    };
   },
 };
 </script>
