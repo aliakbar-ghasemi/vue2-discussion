@@ -8,10 +8,14 @@
 
 <script>
 export default {
-  name: "App",
-
   data: () => ({
     //
   }),
 };
 </script>
+
+<style>
+#app{
+  background-color:#38383d;
+}
+</style>
